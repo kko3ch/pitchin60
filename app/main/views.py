@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import PitchForm,CommentForm,Update_Profile
-from ..models import User,Pitch,Comment,PhotoProfile
+from ..models import Users,Pitch,Comment,PhotoProfile
 from flask_login import login_required,current_user
 from .. import db,photos
 import markdown2
@@ -102,7 +102,7 @@ def new_pitch():
 
 @main.route('/user/<uname>')
 def profile(uname):
-    user = User.query.filter_by(username = uname).first()
+    user = Users.query.filter_by(username = uname).first()
 
     if user is None:
         abort(404)
@@ -111,7 +111,7 @@ def profile(uname):
 @main.route('/user/<name>/updateprofile', methods = ['POST','GET'])
 @login_required
 def update_profile(name):
-    user = User.query.filter_by(username = name).first()
+    user = Users.query.filter_by(username = name).first()
     if user is None:
         abort(404)
     form = Update_Profile()
@@ -126,7 +126,7 @@ def update_profile(name):
 @main.route('/user/<uname>/update_pic',methods= ['POST'])
 @login_required
 def update_pic(uname):
-    user = User.query.filter_by(username = uname).first()
+    user = Users.query.filter_by(username = uname).first()
     if 'photo' in request.files:
         filename = photos.save(request.files['photo'])
         path = f'photos/{filename}'
