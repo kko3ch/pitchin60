@@ -18,12 +18,12 @@ class Config:
     SENDER_EMAIL = 'testme3848@gmail.com'
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
+
     @staticmethod
     def init_app(app):
         pass
 
 class ProdConfig(Config):
-    
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class TestConfig(Config):
