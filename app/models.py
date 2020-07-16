@@ -57,7 +57,7 @@ class Comment(db.Model):
     def __repr__(self):
         return f'comment:{self.comment}'
 
-class User(UserMixin,db.Model):
+class Users(UserMixin,db.Model):
     '''
     Class User defines users as objects
     '''
