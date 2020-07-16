@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/movie.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            {{ wtf.quick_form(comment_form) }}
+            {{simplemde.load}}
+        </div>
+        <div class="col-md-5">
+            {%if comments%}
+            <h3 class="text-center">All Comments</h3>
+            {% for comment in comments %}
+            <div class="card" style="border: 2px solid black; margin: 10px; padding: 10px;">
+                <div class="card-body">
+                    <div class="card-text">
+                        <p>{{ comment }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small>by: {{ user }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h3 class="text-center">No Comments</h3>
+            {% endif %}
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+{% endblock %}

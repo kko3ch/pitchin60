@@ -1,0 +1,49 @@
+{% extends 'base.html'%} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>{{user.username| capitalize}} </h3>
+            {% if user.profile_pic_path %}
+            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="thumbnail" style="width: 350px" height="350px"> {%else%}
+            <p>No profile picture</p>
+            {% endif %} 
+            {% if user.bio %}
+            <p>{{user.bio}}</p>
+            {% endif %} 
+            {% if user == current_user %}
+            <a href="{{url_for('main.update_profile',name=user.username)}}">Add bio</a>
+            {% endif %} 
+            {% if user == current_user %}
+            <form style="margin-top: 20px;" action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype="multipart/form-data">
+                <input type="file" name="photo" class="form-control" required>
+                <input style="margin-top: 10px;" type="submit">
+            </form>
+            {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4" id="user">
+            <h3 class="text-center">You have {{user.pitches.count()}} Pitches</h3>
+            {%if pitch%} 
+            {%for pitch_item in pitch%}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="card mt-5">
+                            <div class="card-header">
+                                <b>{{pitch_item.category}}</b>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <strong>{{pitch_item.title}}</strong><br>
+                                    <i>{{pitch_item.details}}</i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%} {%endif%}
+            </div>
+        </div>
+    </div>
+</div> {% endblock %}

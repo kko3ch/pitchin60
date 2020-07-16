@@ -1,0 +1,30 @@
+{% macro displayPitchList(pitch_list) %}
+    {% for pitch in pitch_list %}
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h4 style="background-color: #2A9D8F; width: auto; padding: 10px;">{{ pitch.category }}</h4>
+                <h3>{{ pitch.title }}</h3>
+            </div>
+            <div class="card-text">
+                <p>{{ pitch.details }}</p>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img style="margin-right: 10px;" src="{{url_for('static',filename='photos/upvotee.png')}}" alt="" width="20px" height="20px">
+                        <span style="margin-right: 10px;">{{ pitch.votes }}</span>
+                        <img src="{{url_for('static',filename='photos/downvote.jpeg')}}" alt="" width="20px" height="20px">
+                    </div>
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-3">
+                        <a href="{{url_for('main.pitch',pitch_id=pitch.id)}}"><small>comment</small></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    {% endfor %}
+{% endmacro %}
+
